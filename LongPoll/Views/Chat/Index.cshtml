@@ -1,5 +1,40 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Chatty Chat Chat";
 }
 
-<h2>Index</h2>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $(".btn-submit").click(function () {
+            $.ajax({
+                type: "GET",
+                url: "/chat/PostMessage",
+                data: {message: $("#txtMessage").val()}
+            })
+         });
+
+        function getNextMessage() {
+
+            $.post("@Url.Action("GetNextMessageLongPoll")", function (message) {
+                $("<li>").text(message).appendTo("#messages");
+
+                getNextMessage();
+            });
+        }
+
+        getNextMessage();
+    });
+
+</script>
+
+<h2>Chatty Chat Chat</h2>
+
+<ul id="messages"></ul>
+
+Say something: <input type="text" id="txtMessage" />
+               <button class="btn-submit">Submit</button>
+
+ 
+
+
