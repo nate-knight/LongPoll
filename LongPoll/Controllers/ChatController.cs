@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
+using LongPoll.Models;
+
 
 namespace LongPoll.Controllers
 {
@@ -12,6 +15,13 @@ namespace LongPoll.Controllers
     {
         static TaskCompletionSource<string> _nextMessage
            = new TaskCompletionSource<string>();
+
+        class Chat
+        {
+            public string text { get; set; }
+        }
+
+        static List<Chat> _chats = new List<Chat>();
 
         //
         // GET: /Chat/
@@ -28,6 +38,7 @@ namespace LongPoll.Controllers
             return "GetNextMessage: " + DateTime.Now.ToLongTimeString();
         }
 
+
         public async Task<string> GetNextMessageLongPoll()
         {
             //Thread.Sleep(2000);
@@ -36,15 +47,23 @@ namespace LongPoll.Controllers
             //return "GetNextMessageLongPoll " + DateTime.Now.ToLongTimeString() + " count " + counter;
 
             return await _nextMessage.Task;
-
         }
 
+
+        //public string GetChatHistory()
+        //{
+        //    return Json(_chats).ToString();
+        //}
 
         public void PostMessage(string message)
         {
             _nextMessage.SetResult(message);
             _nextMessage = new TaskCompletionSource<string>();
 
+           // Chat newChat = new Chat();
+           // newChat.text = message;
+
+           // _chats.Add(newChat);
         }
 
     }
