@@ -25,7 +25,7 @@
                 url: "chat/getNextMessageLongPoll",
                 success: function (message) {
                     //when response is recieved, update list and call this function again
-                    $("<li>").text(message).appendTo("#messages")
+                    $("<li>").text(message).appendTo("#messages");
 
                 },
                 timeout: 100000,
