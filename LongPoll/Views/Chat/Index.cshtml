@@ -13,21 +13,21 @@
                 data: {message: $("#txtMessage").val()}
             })
 
+            //reset textbox
             $("#txtMessage").val("");
 
          });
 
-        function getNextMessage() {
+        (function getNextMessage() {
 
-            $.get("chat/getNextMessageLongPoll", function (message) {
+            $.post("chat/getNextMessageLongPoll", function (message) {
                 //when response is recieved, update list and call this function again
                 $("<li>").text(message).appendTo("#messages");
 
                 getNextMessage();
             });
-        };
+        })();
 
-        getNextMessage();
 
 
         //load message history
