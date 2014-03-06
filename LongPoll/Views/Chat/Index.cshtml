@@ -8,27 +8,37 @@
 
         $(".btn-submit").click(function () {
             $.ajax({
-                type: "GET",
+                type: "POST",
                 url: "/chat/PostMessage",
                 data: {message: $("#txtMessage").val()}
             })
 
             //reset textbox
             $("#txtMessage").val("");
-
+            
          });
 
         (function getNextMessage() {
 
-            $.post("chat/getNextMessageLongPoll", function (message) {
-                //when response is recieved, update list and call this function again
-                $("<li>").text(message).appendTo("#messages");
+            $.ajax({
+                type: "POST",
+                url: "chat/getNextMessageLongPoll",
+                success: function (message) {
+                    //when response is recieved, update list and call this function again
+                    $("<li>").text(message).appendTo("#messages")
 
-                getNextMessage();
+                },
+                timeout: 100000,
+                error: function( jqXHR ,  textStatus,  errorThrown){
+                    console.log("error: " + errorThrown);
+                },
+                complete: getNextMessage
             });
+                
+            
         })();
 
-
+       
 
         //load message history
        // $("#chatHistory").load("chat/GetChatHistory");
