@@ -7,6 +7,8 @@
     $(document).ready(function () {
 
         $(".btn-submit").click(function () {
+
+            //send chat message to server
             $.ajax({
                 type: "POST",
                 url: "/chat/PostMessage",
@@ -18,21 +20,20 @@
             
          });
 
-        (function getNextMessage() {
+        (function longPoll() {
 
             $.ajax({
                 type: "POST",
-                url: "chat/getNextMessageLongPoll",
+                url: "chat/longPoll",
                 success: function (message) {
                     //when response is recieved, update list and call this function again
                     $("<li>").text(message).appendTo("#messages");
 
                 },
-                timeout: 100000,
                 error: function( jqXHR ,  textStatus,  errorThrown){
                     console.log("error: " + errorThrown);
                 },
-                complete: getNextMessage
+                complete: longPoll
             });
 
         })();

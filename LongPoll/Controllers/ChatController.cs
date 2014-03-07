@@ -24,7 +24,7 @@ namespace LongPoll.Controllers
             return View();
         }
 
-        public async Task<string> GetNextMessageLongPoll()
+        public async Task<string> longPoll()
         {
             
             var x =  await _nextMessage.Task;

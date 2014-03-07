@@ -1,15 +1,16 @@
 ﻿@{
     ViewBag.Title = "setTimeout";
 }
-<h1>Poll</h1>
-<h2>setTimeout</h2>
+<h1>Poll - setTimeout example</h1>
+
 
 <script type="text/javascript">
 
     $(document).ready(function () {
 
         $(".btn-submit").click(function () {
-            console.log('entered');
+            
+            //send chat message to server
             $.ajax({
                 type: "POST",
                 url: "setTimeout/PostMessage",
@@ -30,7 +31,7 @@
                         poll();
                     }
                 });
-            }, 5000);
+            }, 3000);
         })();
 
     });
