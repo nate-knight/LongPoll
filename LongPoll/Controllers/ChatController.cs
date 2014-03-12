@@ -27,7 +27,6 @@ namespace LongPoll.Controllers
         public async Task<string> longPoll()
         {
              return  await _nextMessage.Task;
-
         }
 
 
