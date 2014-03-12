@@ -16,7 +16,8 @@
             })
 
             //reset textbox
-            $("#txtMessage").val("");
+            $("#txtMessage").val("").focus();
+
             
          });
 
@@ -26,14 +27,13 @@
                 type: "POST",
                 url: "chat/longPoll",
                 success: function (message) {
-                    //when response is recieved, update list and call this function again
+                    //when response is recieved, update list
                     $("<li>").text(message).appendTo("#messages");
-
                 },
                 error: function( jqXHR ,  textStatus,  errorThrown){
                     console.log("error: " + errorThrown);
                 },
-                complete: longPoll
+                complete: longPoll //call function again after either success or error.
             });
 
         })();
@@ -42,12 +42,17 @@
 
 </script>
 
-<h2>Chatty Chat Chat</h2>
+<h2>Chatty</h2>
 
-<ul id="messages"></ul>
+<div class="message-container">
+    <ul id="messages"></ul>
+</div>
 
-Say something: <input type="text" id="txtMessage" />
-               <button class="btn-submit">Submit</button>
+<div class="input-holder"><input type="text" id="txtMessage" placeholder="say something" /></div>
+<div class="button-holder"><button class="btn-submit btn btn-default btn-large">Send</button></div>
+
+
+
 
  
 

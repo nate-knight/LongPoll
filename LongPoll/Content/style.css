@@ -1,4 +1,36 @@
 ﻿ul li
 {
     font-size:21px;
+    list-style-type:none;
+}
+
+body
+{
+    color:white;
+    background-color:black;
+}
+
+input[type="text"]
+{
+    height:30px;
+}
+.input-holder
+{
+    float:left;
+    position:relative;
+    left:20px;
+}
+
+.btn-submit
+{
+    position:relative;
+    left:35px;
+    top:-1px;
+}
+.message-container
+{
+    border-right:1px solid white;
+    height:400px;
+    width:300px;
+    float:left;
 }

@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
-using LongPoll.Models;
+
 
 
 namespace LongPoll.Controllers
@@ -26,10 +26,8 @@ namespace LongPoll.Controllers
 
         public async Task<string> longPoll()
         {
-            
-            var x =  await _nextMessage.Task;
+             return  await _nextMessage.Task;
 
-            return x;
         }
 
 
