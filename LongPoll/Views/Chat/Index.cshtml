@@ -4,9 +4,12 @@
 
 <script type="text/javascript">
 
+
+
     $(document).ready(function () {
 
-        $(".btn-submit").click(function () {
+
+        $(".btn-send").click(function () {
 
             //send chat message to server
             $.ajax({
@@ -15,9 +18,8 @@
                 data: {message: $("#txtMessage").val()}
             })
 
-            //reset textbox
+            //clear textbox and set focus
             $("#txtMessage").val("").focus();
-
             
         });
 
@@ -26,7 +28,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "chat/longPoll",
+                url: "chat/GetNextMessage",
                 success: function (message) {
                     //when response is recieved, update list
                     $("<li>").text(message).appendTo("#messages");
@@ -43,14 +45,24 @@
 
 </script>
 
+
+
 <h2>Chat</h2>
 
+<!--1. Message List-->
 <div class="message-container">
     <ul id="messages"></ul>
 </div>
 
-<div class="input-holder"><input type="text" id="txtMessage" placeholder="say something" /></div>
-<div class="button-holder"><button class="btn-submit btn btn-default btn-large">Send</button></div>
+<!--2. say something text box-->
+<div class="input-holder">
+    <input type="text" id="txtMessage" placeholder="say something" />
+</div>
+
+<!--3. send button-->
+<div class="button-holder">
+    <button class="btn-send btn btn-default btn-large">Send</button>
+</div>
 
 
 

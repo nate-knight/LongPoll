@@ -7,34 +7,32 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 
-
-
 namespace LongPoll.Controllers
 {
     public class ChatController : Controller
     {
-         static TaskCompletionSource<string> _nextMessage
+        //static member
+        static TaskCompletionSource<string> _message
            = new TaskCompletionSource<string>();
 
         //
         // GET: /Chat/
-
         public ActionResult Index()
         {
             return View();
         }
 
-        public async Task<string> longPoll()
-        {
-             return  await _nextMessage.Task;
-        }
-
-
+        //PostMessage
         public void PostMessage(string message)
         {
-            _nextMessage.SetResult(message);
-            _nextMessage = new TaskCompletionSource<string>();
+            _message.SetResult(message);
+            _message = new TaskCompletionSource<string>();
+        }
 
+        //GetNextMessage (long poll)
+        public async Task<string> GetNextMessage()
+        {
+             return  await _message.Task;
         }
 
     }
