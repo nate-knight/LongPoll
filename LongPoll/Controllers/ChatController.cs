@@ -11,29 +11,33 @@ namespace LongPoll.Controllers
 {
     public class ChatController : Controller
     {
-        //static member
+        //shared member
+        //links our GetNextMessage() and ChatMessage() methods asynchronously
         static TaskCompletionSource<string> _message
            = new TaskCompletionSource<string>();
 
-        //
+       
         // GET: /Chat/
         public ActionResult Index()
         {
             return View();
         }
 
-        //PostMessage
-        public void PostMessage(string message)
+        //(long poll method)
+        public async Task<string> GetNextMessage()
         {
-            _message.SetResult(message);
+            var response = await _message.Task; //Don't respond to client(s) until _message.SetResult is called in ChatMessage 
+            
+            return response;
+        }
+
+        //
+        public void ChatMessage(string message)
+        {
+            _message.SetResult(message); //we've got what we are waiting for! GetNextMessage can now respond to client(s).
             _message = new TaskCompletionSource<string>();
         }
 
-        //GetNextMessage (long poll)
-        public async Task<string> GetNextMessage()
-        {
-             return  await _message.Task;
-        }
-
+        
     }
 }

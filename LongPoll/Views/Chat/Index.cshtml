@@ -9,21 +9,6 @@
     $(document).ready(function () {
 
 
-        $(".btn-send").click(function () {
-
-            //send chat message to server
-            $.ajax({
-                type: "POST",
-                url: "/chat/PostMessage",
-                data: {message: $("#txtMessage").val()}
-            })
-
-            //clear textbox and set focus
-            $("#txtMessage").val("").focus();
-            
-        });
-
-
         (function longPoll() {
 
             $.ajax({
@@ -41,13 +26,34 @@
 
         })();
 
+
+        $(".btn-send").click(function () {
+
+            //send chat message to server
+            $.ajax({
+                type: "POST",
+                url: "/chat/ChatMessage",
+                data: {message: $("#txtMessage").val()}
+            })
+
+            //clear textbox and set focus
+            $("#txtMessage").val("").focus();
+            
+        });
+
+
+
+
+
+
+
     });
 
 </script>
 
 
 
-<h2>Chat</h2>
+<h2>Chat for Lonely People</h2>
 
 <!--1. Message List-->
 <div class="message-container">
