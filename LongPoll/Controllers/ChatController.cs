@@ -38,6 +38,5 @@ namespace LongPoll.Controllers
             _message = new TaskCompletionSource<string>();
         }
 
-        
     }
 }
