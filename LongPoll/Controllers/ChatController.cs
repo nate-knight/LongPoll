@@ -26,7 +26,8 @@ namespace LongPoll.Controllers
         //(long poll method)
         public async Task<string> GetNextMessage()
         {
-            var response = await _message.Task; //Don't respond to client(s) until _message.SetResult is called in ChatMessage 
+            var response = await _message.Task; //Don't respond to client(s) until _message.SetResult 
+                                                //is called in ChatMessage 
             
             return response;
         }
@@ -34,7 +35,8 @@ namespace LongPoll.Controllers
         //
         public void ChatMessage(string message)
         {
-            _message.SetResult(message); //we've got what we are waiting for! GetNextMessage can now respond to client(s).
+            _message.SetResult(message); //we've got what we are waiting for! 
+                                         //GetNextMessage can now respond to client(s).
             _message = new TaskCompletionSource<string>();
         }
 
